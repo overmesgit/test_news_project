@@ -1,0 +1,11 @@
+<div class="row">
+  <a href="{{ news.url }}" target="_blank"><h3>{{ news.title }}</h3></a>
+  {% if news.image_url %}
+    <a href="{{ news.image_url }}" target="_blank"><img src="{{ news.image_url }}" style="max-height: 300px;"></a>
+  {% endif %}
+  <p style="white-space: pre-wrap">{{ news.description }}</p>
+  <p style="white-space: pre-wrap">{{ news.content }}</p>
+  <p style="white-space: pre-wrap">{{ post.text }}</p>
+  <p>{{ post.author }}</p>
+  <div>{{ post.published_at|date }}</div>
+</div>

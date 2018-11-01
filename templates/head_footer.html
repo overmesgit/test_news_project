@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Main Page</title>
+  <link rel="stylesheet" href="{% static "Skeleton-2.0.4/css/normalize.css" %}">
+  <link rel="stylesheet" href="{% static "Skeleton-2.0.4/css/skeleton.css" %}">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <h1>NEWS SITE</h1>
+    </div>
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
