@@ -1,25 +1,24 @@
 # Test News site
 
+Test site for presentation purpose
+
 ## Requirements
-Python3.7
+Python3.6+
+
+Originally developed with python3.7, but also was tested with python3.6
 
 ## Install
 ```
 git clone https://github.com/overmesgit/test_news_project
-
 cd test_news_project
-
 python3.7 -m venv env
-
 source env/bin/activate
-
 pip install -r requirements.txt
 ```
 Set secret key and allow host for production use or 
 use --settings=news_project.dev_settings for creating dev environment
 ```
 ./manage.py migrate --settings=news_project.dev_settings
-
 ./manage.py test --settings=news_project.dev_settings
 ```
 ## Download news
@@ -34,17 +33,24 @@ Take fetch_news command help for more information
 ```
 
 ## Production Run
-Set secret key and allow host for production use
+Set secret key and allow host in settings for production use
 ```
 ./manage.py runserver
 ```
 
 ## Structure
-About django rest framework and throttling.
+####
+Currently solution consist from one application - news
 
-Main models
+Main parts:
 
-Unique key for news
+- models with NewsModel and NewsSourceModel
+- scrapers with base structure and implementation for apinews.org
+- views for http views
+- views_api for api views
 
-## Todo
-fix fetch data errors
+####About django rest framework and throttling
+Creating REST API with django, django-rest-framework is the most popular and convenient way.
+Because in test description was mentioned not to use unnecessary frameworks, 
+I decided to make it from scratch. So I could not use django-rest-framework Throttling class and 
+created my own middleware.
