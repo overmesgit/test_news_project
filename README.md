@@ -49,7 +49,7 @@ Main parts:
 - views for http views
 - views_api for api views
 
-####About django rest framework and throttling
+#### About django rest framework and throttling
 Creating REST API with django, django-rest-framework is the most popular and convenient way.
 Because in test description was mentioned not to use unnecessary frameworks, 
 I decided to make it from scratch. So I could not use django-rest-framework Throttling class and 
