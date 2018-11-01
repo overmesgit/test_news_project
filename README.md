@@ -47,6 +47,4 @@ Main models
 Unique key for news
 
 ## Todo
-github
-
-install check
+fix fetch data errors

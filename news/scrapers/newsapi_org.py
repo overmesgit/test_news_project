@@ -10,7 +10,19 @@ from news.utils.url_normalizer import get_normalized_domain_name
 logger = logging.getLogger()
 
 
-class NewsForm(forms.ModelForm):
+class OptionalValidateUniqueMixin:
+    def __init__(self, *args, validate_unique=True, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # we will check it ourselves
+        self.validate_unique_flag = validate_unique
+
+    def validate_unique(self):
+        if self.validate_unique_flag:
+            super().validate_unique()
+
+
+class NewsForm(OptionalValidateUniqueMixin, forms.ModelForm):
     """Model form to validate data from newsapi.org"""
 
     published_at = forms.DateTimeField(input_formats=['%Y-%m-%dT%H:%M:%SZ'])
@@ -20,7 +32,7 @@ class NewsForm(forms.ModelForm):
         fields = '__all__'
 
 
-class NewsSourceForm(forms.ModelForm):
+class NewsSourceForm(OptionalValidateUniqueMixin, forms.ModelForm):
     """Model form to validate data from newsapi.org"""
 
     class Meta:
@@ -35,7 +47,7 @@ class NewsApiOrgScraper(BaseScraper):
 
     def create_source(self, data: Dict[str, Any]) -> Optional[NewsSourceModel]:
         domain = get_normalized_domain_name(data['url'])
-        form = NewsSourceForm(data={'domain': domain, 'name': data['source'].get('name')})
+        form = NewsSourceForm(data={'domain': domain, 'name': data['source'].get('name')}, validate_unique=False)
 
         if form.is_valid():
             return form.save(commit=False)
@@ -51,7 +63,7 @@ class NewsApiOrgScraper(BaseScraper):
             'author': data['author'], 'title': data['title'], 'description': data['description'],
             'url': data['url'], 'image_url': data['urlToImage'], 'published_at': data['publishedAt'],
             'content': data['content'], 'source': source
-        })
+        }, validate_unique=False)
 
         if form.is_valid():
             return form.save(commit=False)
