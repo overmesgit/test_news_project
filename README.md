@@ -31,6 +31,14 @@ Take fetch_news command help for more information
 ```
 ./manage.py runserver --settings=news_project.dev_settings
 ```
+### End points
+Html version of site:
+
+http://127.0.0.1:8000/
+
+Json version of site, paginated by 'page' parameter
+
+http://127.0.0.1:8000/api/v1/news/
 
 ## Production Run
 Set secret key and allow host in settings for production use
